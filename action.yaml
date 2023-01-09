@@ -23,6 +23,10 @@ inputs:
     description: ""
     required: false
     default: " -v"
+  other-test-args:
+    description: ""
+    required: false
+    default: ""
 outputs:
   coverage-report-files:
     description: ""
@@ -99,7 +103,8 @@ runs:
           --ctest-args -L "${{ inputs.label-regex }}" \
           --executor sequential \
           --return-code-on-test-failure \
-          --pytest-args "${{ inputs.pytest-args }}"
+          --pytest-args "${{ inputs.pytest-args }}" \
+          ${{ inputs.other-test-args }}
         colcon lcov-result \
           --verbose \
           --packages-above ${{ inputs.target-packages }} || true
